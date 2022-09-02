@@ -1,4 +1,13 @@
-const tasks = ["Take your trash out"];
+const tasks = [
+    {
+        task: "Take your trash out",
+        complete: true
+    },
+    {
+        task: "Complete chrome extension",
+        complete: false
+    }
+];
 
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ tasks });
