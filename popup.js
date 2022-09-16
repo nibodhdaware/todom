@@ -1,19 +1,18 @@
 let list = document.getElementById("list");
 
-chrome.storage.sync.get("tasks", ({tasks}) => {
-    tasks.forEach((task) => {
-        var input = document.createElement('input')
-        var label = document.createElement('label')
-        var task_name = document.createTextNode(" " + task.task)
-        var br = document.createElement('br')
+const getTodos = async () => {
+    const { todos } = await chrome.storage.sync.get("todos");
+    todos.forEach(todo => {
+        var list_elem = document.createElement('li')
+        var task_name = document.createTextNode(todo.name)
 
-        input.type = 'checkbox'
-        input.className = 'task'
-        input.checked = task.complete
+        list_elem.appendChild(task_name)
+        list.appendChild(list_elem)
 
-        label.appendChild(input)
-        label.appendChild(task_name)
-        label.appendChild(br)
-        list.appendChild(label)
+        list_elem.addEventListener('click', () => {
+            list_elem.remove()
+        })
     })
-})
+}
+
+getTodos()

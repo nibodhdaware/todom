@@ -1,15 +1,15 @@
-const tasks = [
+const todos = [
     {
-        task: "Take your trash out",
-        complete: true
+        name: "Take your trash out",
+        checked: false
     },
     {
-        task: "Complete chrome extension",
-        complete: false
+        name: "Complete chrome extension",
+        checked: false
     }
 ];
 
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({ tasks });
-    console.log(`Currently you have ${tasks.length} task(s) left`);
+    chrome.storage.sync.set({ todos });
+    console.log(`Currently you have ${todos.length} task(s) left`);
 });
