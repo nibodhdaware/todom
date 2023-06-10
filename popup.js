@@ -1,28 +1,51 @@
 let list = document.getElementById("list");
-let addBtn = document.getElementById("add-btn")
-let todoIpDiv = document.getElementById('input-todo-div')
-let todoIp = document.getElementById('todo-ip')
+let addBtn = document.getElementById("add-btn");
+let todoIp = document.getElementById("todo-ip");
 
-const getTodos = async () => {
-    const { todos } = await chrome.storage.sync.get("todos");
-    todos.forEach(todo => {
-        var list_elem = document.createElement('li')
-        var task_name = document.createTextNode(todo)
+const getTodos = () => {
+    chrome.storage.sync.get("todos", ({ todos }) => {
+        if (todos && todos.length > 0) {
+            todos.forEach((todo) => {
+                var list_elem = document.createElement("li");
+                var elem_check = document.createElement("input");
+                elem_check.type = "checkbox";
+                var elem_label = document.createElement("label");
+                elem_label.textContent = todo;
 
-        list_elem.appendChild(task_name)
-        list.appendChild(list_elem)
+                list_elem.appendChild(elem_check);
+                list_elem.appendChild(elem_label);
+                list.appendChild(list_elem);
 
-        list_elem.addEventListener('click', () => {
-            const updatedTodo = todos.filter(task => task != todo);
-            chrome.storage.sync.set({todos: updatedTodo})
-            list_elem.remove()
-        })
-    })
-    addBtn.addEventListener('click', () => {
-        let updatedTodo = todos.push(todoIp.innerText)
-        chrome.storage.sync.set({todos: updatedTodo})
-    })
+                list_elem.addEventListener("click", () => {
+                    const updatedTodo = todos.filter((task) => task != todo);
+                    chrome.storage.sync.set({ todos: updatedTodo });
+                    list_elem.remove();
+                });
+            });
+        }
+    });
+};
 
-}
+getTodos();
 
-getTodos()
+addBtn.addEventListener("click", () => {
+    const newTodo = todoIp.value;
+    if (newTodo) {
+        chrome.storage.sync.get("todos", ({ todos }) => {
+            todos.push(newTodo);
+            chrome.storage.sync.set({ todos: todos });
+        });
+
+        var list_elem = document.createElement("li");
+        var elem_check = document.createElement("input");
+        elem_check.type = "checkbox";
+        var elem_label = document.createElement("label");
+        elem_label.textContent = newTodo;
+
+        list_elem.appendChild(elem_check);
+        list_elem.appendChild(elem_label);
+        list.appendChild(list_elem);
+
+        todoIp.value = "";
+    }
+});
