@@ -9,7 +9,10 @@ const getTodos = () => {
                 var list_elem = document.createElement("li");
                 var elem_check = document.createElement("input");
                 elem_check.type = "checkbox";
+                elem_check.name = todo;
+                elem_check.id = todo;
                 var elem_label = document.createElement("label");
+                elem_label.setAttribute("for", todo);
                 elem_label.textContent = todo;
 
                 list_elem.appendChild(elem_check);
@@ -39,7 +42,10 @@ addBtn.addEventListener("click", () => {
         var list_elem = document.createElement("li");
         var elem_check = document.createElement("input");
         elem_check.type = "checkbox";
+        elem_check.name = newTodo;
+        elem_check.id = newTodo;
         var elem_label = document.createElement("label");
+        elem_label.setAttribute("for", newTodo);
         elem_label.textContent = newTodo;
 
         list_elem.appendChild(elem_check);

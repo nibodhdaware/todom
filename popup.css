@@ -11,7 +11,8 @@ body {
 }
 
 #entire__popup {
-    max-width: 300px;
+    width: 400px;
+    max-width: 100%;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -57,7 +58,18 @@ body {
     margin-bottom: 10px;
 }
 
+li {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+li input[type="checkbox"] {
+    margin-right: 5px;
+}
+
 p {
+    border-top: 1px solid #ccc;
     font-size: 12px;
     text-align: center;
 }
