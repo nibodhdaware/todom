@@ -1,6 +1,6 @@
 {
     "name": "Todom",
-    "description": "Manage your tasks",
+    "description": "Manage your tasks right from your browser!",
     "version": "1.0",
     "manifest_version": 3,
     "background": {
